@@ -1,9 +1,17 @@
-# Template Proyek Django PBP
+# Proyek Django PBP
 
 Pemrograman Berbasis Platform (CSGE602022) - diselenggarakan oleh Fakultas Ilmu Komputer Universitas Indonesia, Semester Ganjil 2022/2023
+Oleh Raden Mohamad Adrian Ramadhan Hendar Wibawa - 2106750540
 
 ## Link to App
 [Catalog App](https://pbp-assignment-2106750540.herokuapp.com/katalog/)
+
+## Bagan
+![Bagan Django](https://github.com/AdrianRamadhan27/assignment-pbp/blob/main/assignment1_chart.gif)
+
+Django merupakan framework yang mengikuti struktur MVT (Model-View-Template). MVT adalah salah satu turunan dari struktur MVC (Model-View-Controller), namun model-nya lebih difokuskan sebagai objek yang mendefinisikan entitas pada database beserta konfigurasinya, lalu views berperan sebagai logika utama dari aplikasi yang akan melakukan pemrosesan terhadap permintaan yang masuk, dan template berperan sebagai tampilan yang akan dikembalikan kepada pengguna.
+
+Adapun alur sebuah permintaan diproses di Django adalah sebagai berikut. Pertama, permintaan yang masuk ke dalam server Django akan diproses melalui urls untuk diteruskan ke views yang didefinisikan oleh pengembang untuk memproses permintaan tersebut. Apabila terdapat proses yang membutuhkan keterlibatan database, maka nantinya views akan memanggil query ke models dan database akan mengembalikan hasil dari query tersebut ke views. Setelah permintaan telah selesai diproses, hasil proses tersebut akan dipetakan ke dalam HTML yang sudah didefinisikan sebelum akhirnya HTML tersebut dikembalikan ke pengguna sebagai respons.
 
 ## Pendahuluan
 
