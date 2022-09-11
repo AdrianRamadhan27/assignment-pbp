@@ -1,46 +1,61 @@
-# Proyek Django PBP
+# Template Proyek Django PBP
 
 Pemrograman Berbasis Platform (CSGE602022) - diselenggarakan oleh Fakultas Ilmu Komputer Universitas Indonesia, Semester Ganjil 2022/2023
 
-Raden Mohamad Adrian Ramadhan Hendar Wibawa - 2106750540
+*Read this in other languages: [Indonesian](README.md), [English](README.en.md)*
 
-## Tugas 1 - Platform Essay
+## Pendahuluan
 
-[Platform: What is it?](https://drive.google.com/file/d/10xfIkMP9gC5HLdUUkkHPvTSbV1zxJWBr/view?usp=sharing)
+Repositori ini merupakan sebuah template yang dirancang untuk membantu mahasiswa yang sedang mengambil mata kuliah Pemrograman Berbasis Platform (CSGE602022) mengetahui struktur sebuah proyek aplikasi Django serta file dan konfigurasi yang penting dalam berjalannya aplikasi. Kamu dapat dengan bebas menyalin isi dari repositori ini atau memanfaatkan repositori ini sebagai pembelajaran sekaligus awalan dalam membuat sebuah proyek Django.
 
-## Tugas 2 - Katalog
+## Cara Menggunakan
 
-### Deployed App
+Apabila kamu ingin menggunakan repositori ini sebagai repositori awalan yang nantinya akan kamu modifikasi:
 
-[Catalog App](https://pbp-assignment-2106750540.herokuapp.com/katalog/)
+1. Buka laman GitHub repositori templat kode, lalu klik tombol "**Use this template**"
+   untuk membuat salinan repositori ke dalam akun GitHub milikmu.
+2. Buka laman GitHub repositori yang dibuat dari templat, lalu gunakan perintah
+   `git clone` untuk menyalin repositorinya ke suatu lokasi di dalam sistem
+   berkas (_filesystem_) komputermu:
 
-### Django Scheme
+   ```shell
+   git clone <URL ke repositori di GitHub> <path ke suatu lokasi di filesystem>
+   ```
+3. Masuk ke dalam repositori yang sudah di-_clone_ dan jalankan perintah berikut
+   untuk menyalakan _virtual environment_:
 
-![Bagan Django](https://github.com/AdrianRamadhan27/assignment-pbp/blob/main/assignment1_chart.gif)
+   ```shell
+   python -m venv env
+   ```
+4. Nyalakan environment dengan perintah berikut:
 
+   ```shell
+   # Windows
+   .\env\Scripts\activate
+   # Linux/Unix, e.g. Ubuntu, MacOS
+   source env/bin/activate
+   ```
+5. Install dependencies yang dibutuhkan untuk menjalankan aplikasi dengan perintah berikut:
 
-*Made with [Canva](https://www.canva.com)*
+   ```shell
+   pip install -r requirements.txt
+   ```
 
-Pada framework **Django**, kita dapat membuat suatu aplikasi yang mengimplementasikan struktur **MVT** (Model, View, Template). Model di sini merepresentasikan *entity* pada database (dipelahari di Basis Data). Views bisa dibilang adalah tempat algoritma yang melakukan proses atas *request* dan *response* sehingga aplikasi bisa berjalan. Template adalah tampilan (*front-end*) yang akan dilihat oleh pengguna.
+6. Jalankan aplikasi Django menggunakan server pengembangan yang berjalan secara
+   lokal:
 
-Ketika seorang user membuat request untuk aplikasi ini, `urls.py` pada folder `project_django` akan melakukan *routing* berdasarkan jenis url request yang diterima. Setelah itu, ia akan memanggil aplikasi yang ada, salah satunya adalah **katalog**. Dalam folder katalog, juga ada `urls.py` yang mengatur routing untuk url dengan prefix `katalog/`. Jika tidak ada prefix tambahan, yang akan dipanggil adalah function `show_katalog()` dari `views.py`. Function ini akan memanggil data bermodelkan `CatalogItem` yang terdefinisikan pada `models.py` dari database yang masih berupa file `.json`. Setelah itu, function ini juga akan me-*render* file template `katalog.html` dengan konteks berupa data tadi. Baru lah user akan ditampilkan aplikasi katalog dengan tabel data yang ada. 
+   ```shell
+   python manage.py runserver
+   ```
+7. Bukalah `http://localhost:8000` pada browser favoritmu untuk melihat apakah aplikasi sudah berjalan dengan benar.
 
-### Usage of Virtual Environment
+## Contoh Deployment 
 
-Dalam pengembangan aplikasi Django di repositori lokal komputer kita, dibutuhkan sebuah Virtual Environment yang dapat kita buat dengan command `python -m venv [nama_environment]`. Command ini akan membuat folder dengan nama environment yang kita pilih dan kita dapat mengaktifkan Virtual Environment dengan `/Scripts/activate.bat` di dalam folder ini. Berdasarkan [Andrade](https://towardsdatascience.com/why-you-need-a-python-virtual-environment-and-how-to-set-it-up-35019841697d), Virtual Environment ini digunakan agar kita tidak perlu menyesuaikan *requirements*/*dependencies* yang dibutuhkan project di komputer kita secara global. Kita hanya perlu meng-*install* nya di virtual environment dan project kita bisa dijalankan. 
+Pada template ini, deployment dilakukan dengan memanfaatkan GitHub Actions sebagai _runner_ dan Heroku sebagai platform Hosting aplikasi. 
 
-### How I Did It
+Untuk melakukan deployment, kamu dapat melihat instruksi yang ada pada [Tutorial 0](https://pbp-fasilkom-ui.github.io/ganjil-2023/assignments/tutorial/tutorial-0).
 
-Dari template project yang sudah disediakan, aku ditugaskan untuk:
-1. Membuat sebuah fungsi pada views.py yang dapat melakukan pengambilan data dari model dan dikembalikan ke dalam sebuah HTML.
-Pertama, aku clone repositori github ku ke repositori lokal. Lalu aku membuat sebuah fungsi `show_katalog()` yang mengambil data dengan memanggil `CatalogItem.objects.all()` yang berisi data yang dibuat dari command `python manage.py loaddata inital_catalog_data.json`. Aku lalu membuat sebuah dictionary `context` yang isinya adalah data yang akan ditampilkan pada file HTML. Nama data beserta value yang ada diantaranya adalah nama, npm, dan list_catalog. Setelah itu aku me-`return` pemanggilan function `render` dengan parameter pertama adalah request, parameter kedua adalah file `katalog.html`, dan parameter ketiga adalah `context`. Oiya, file `index.html` di dalam `/katalog/templates/` kuganti namanya agar tidak berkomplikasi dengan file dengan nama yang sama di `example_app`.   
-2. Membuat sebuah routing untuk memetakan fungsi yang telah kamu buat pada views.py.
-Untuk membuat sebuah routing, aku pertama-tama membuat file `urls.py` di dalam folder katalog. Di dalamnya ada sebuah array `urlpatterns`. Isinya merupakan path apa saja yang bisa dipanggil oleh aplikasi katalog ini. Untuk path dengan request hanya `katalog/`, ia akan memanggil function `show_katalog()` dari views. Tak lupa, aku juga menambahkan path `katalog/` pada urlpatterns dari `project_django/urls.py`. 
-3. Memetakan data yang didapatkan ke dalam HTML dengan sintaks dari Django untuk pemetaan data template.
-Untuk memetakan data ke file HTML, aku menggunakan sintaks `{% statement %}` untuk menjalankan proses kode seperti for loop dan `{{ variable }}` untuk menampilkan value dari suatu variable. Aku membuat for each loop dari setiap data `CatalogItem` yang diterima dari context. Setiap iterasinya akan membuat sebuah row berisikan cell data yang masing-masing cell nya berisikan atribut dari data item. Aku juga menampilkan nama dan NPM pada bagian atas tabel.
-4. Melakukan deployment ke Heroku terhadap aplikasi yang sudah kamu buat sehingga nantinya dapat diakses oleh teman-temanmu melalui Internet.
-Untuk deployment, aku pertama membuka [Heroku](https://www.heroku.com) dan membuat app baru. Kemudian, aku membuka Account Settings dan meng-*copy* API Key. Setelah itu, aku commit perubahan yang telah aku lakukan ke repositori github. Di github, aku buka settings repositoriku dan menambahkan **secrets**. Secrets yang kutambahkan adalah `HEROKU_APP_NAME` dan `HEROKU_API_KEY`. Selanjutnya aku buka tab Actions dan di bagian workflow aku lakukan `Re-run all jobs`pada commit terakhir. Akhirnya, aplikasiku bisa dibuka di domain yang disediakan Heroku.
-
+Untuk contoh aplikasi Django yang sudah di deploy, dapat kamu akses di [https://django-pbp-template.herokuapp.com/](https://django-pbp-template.herokuapp.com/)
 
 ## Credits
 
