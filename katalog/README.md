@@ -27,7 +27,7 @@ Ketika seorang user membuat request untuk aplikasi ini, `urls.py` pada folder `p
 
 ### Usage of Virtual Environment
 
-Dalam pengembangan aplikasi Django di repositori lokal komputer kita, dibutuhkan sebuah Virtual Environment yang dapat kita buat dengan command `python -m venv [nama_environment]`. Command ini akan membuat folder dengan nama environment yang kita pilih dan kita dapat mengaktifkan Virtual Environment dengan `/Scripts/activate.bat` di dalam folder ini. Berdasarkan [Andrade](https://towardsdatascience.com/why-you-need-a-python-virtual-environment-and-how-to-set-it-up-35019841697d), Virtual Environment ini digunakan agar kita tidak perlu menyesuaikan *requirements*/*dependencies* yang dibutuhkan project di komputer kita secara global. Kita hanya perlu meng-*install* nya di virtual environment dan project kita bisa dijalankan. 
+Dalam pengembangan aplikasi Django di repositori lokal komputer kita, dibutuhkan sebuah Virtual Environment yang dapat kita buat dengan command `python -m venv [nama_environment]`. Command ini akan membuat folder dengan nama environment yang kita pilih dan kita dapat mengaktifkan Virtual Environment dengan `/Scripts/activate.bat` di dalam folder ini. Menurut [Andrade (2021)](https://towardsdatascience.com/why-you-need-a-python-virtual-environment-and-how-to-set-it-up-35019841697d), Virtual Environment ini digunakan agar kita tidak perlu menyesuaikan *requirements*/*dependencies* yang dibutuhkan project di komputer kita secara global. Kita hanya perlu meng-*install* nya di virtual environment dan project kita bisa dijalankan. 
 
 ### How I Did It
 
@@ -40,6 +40,9 @@ Untuk membuat sebuah routing, aku pertama-tama membuat file `urls.py` di dalam f
 Untuk memetakan data ke file HTML, aku menggunakan sintaks `{% statement %}` untuk menjalankan proses kode seperti for loop dan `{{ variable }}` untuk menampilkan value dari suatu variable. Aku membuat for each loop dari setiap data `CatalogItem` yang diterima dari context. Setiap iterasinya akan membuat sebuah row berisikan cell data yang masing-masing cell nya berisikan atribut dari data item. Aku juga menampilkan nama dan NPM pada bagian atas tabel.
 4. Melakukan deployment ke Heroku terhadap aplikasi yang sudah kamu buat sehingga nantinya dapat diakses oleh teman-temanmu melalui Internet.
 Untuk deployment, aku pertama membuka [Heroku](https://www.heroku.com) dan membuat app baru. Kemudian, aku membuka Account Settings dan meng-*copy* API Key. Setelah itu, aku commit perubahan yang telah aku lakukan ke repositori github. Di github, aku buka settings repositoriku dan menambahkan **secrets**. Secrets yang kutambahkan adalah `HEROKU_APP_NAME` dan `HEROKU_API_KEY`. Selanjutnya aku buka tab Actions dan di bagian workflow aku lakukan `Re-run all jobs`pada commit terakhir. Akhirnya, aplikasiku bisa dibuka di domain yang disediakan Heroku.
+
+### Testing
+Setelah aplikasi Django sudah jadi, aku menambahkan sebuah unit test sederhana yaitu model testing. Pada file `tests.py` terdapat sebuah test case yang akan mengecek apabila model yang dibuat merupakan instance dari `CatalogItem`. Testing ini dapat dijalankan dengan command `python manage.py test`.
 
 
 ## Credits
