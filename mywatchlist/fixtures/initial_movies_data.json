@@ -1,0 +1,112 @@
+[
+    {
+        "model": "mywatchlist.mywatchlist",
+        "pk": 1,
+        "fields": {
+            "watched": true,
+            "title": "The Godfather",
+            "rating": 5,
+            "release_date": "1972-03-24",
+            "review": "Best mafia movie of all time. Referenced in and has influenced so many movies. Al Pacino's breakout role and Marlon Brando's phenomenal acting carried the movie."
+        }
+    },
+    {
+        "model": "mywatchlist.mywatchlist",
+        "pk": 2,
+        "fields": {
+            "watched": true,
+            "title": "Parasite",
+            "rating": 4,
+            "release_date": "2019-06-21",
+            "review": "A movie with tons of emotions mixed in. Enjoyed the first half and enjoyed the second half even more."
+        }
+    },
+    {
+        "model": "mywatchlist.mywatchlist",
+        "pk": 3,
+        "fields": {
+            "watched": false,
+            "title": "Titanic",
+            "rating": 3,
+            "release_date": "1998-01-05",
+            "review": "Leonardo DiCaprio is in this, right? Is Rose over 25? Favourite character is the iceberg."
+        }
+    },
+    {
+        "model": "mywatchlist.mywatchlist",
+        "pk": 4,
+        "fields": {
+            "watched": false,
+            "title": "The Lion King",
+            "rating": 5,
+            "release_date": "2019-07-17",
+            "review": "It's the scene-for-scene as the 1994 one, right? Surely it's as good."
+        }
+    },
+    {
+        "model": "mywatchlist.mywatchlist",
+        "pk": 5,
+        "fields": {
+            "watched": false,
+            "title": "OS Videos",
+            "rating": 5,
+            "release_date": "2022-08-29",
+            "review": "I've never actually watched any reference video for OS. I just made up the reviews on os222/LINKS"
+        }
+    },
+    {
+        "model": "mywatchlist.mywatchlist",
+        "pk": 6,
+        "fields": {
+            "watched": false,
+            "title": "Morbius",
+            "rating": 5,
+            "release_date": "2022-03-30",
+            "review": "One of the movies of all time. It's a dead joke but my favourite quote is its morbin time"
+        }
+    },
+    {
+        "model": "mywatchlist.mywatchlist",
+        "pk": 7,
+        "fields": {
+            "watched": true,
+            "title": "Forrest Gump",
+            "rating": 5,
+            "release_date": "1994-07-06",
+            "review": "Emotional and Entertaining. Infinitely rewatchable"
+        }
+    },
+    {
+        "model": "mywatchlist.mywatchlist",
+        "pk": 8,
+        "fields": {
+            "watched": true,
+            "title": "Everything Everywhere All At Once",
+            "rating": 1,
+            "release_date": "2022-06-22",
+            "review": "Hot dog fingers"
+        }
+    },
+    {
+        "model": "mywatchlist.mywatchlist",
+        "pk": 9,
+        "fields": {
+            "watched": true,
+            "title": "The Platform",
+            "rating": 4,
+            "release_date": "2019-11-8",
+            "review": "A platform is a group of technologies that are used- nope, not the 1000 word essay. A spanish movie about food. Recommended for those who eat food."
+        }
+    },
+    {
+        "model": "mywatchlist.mywatchlist",
+        "pk": 10,
+        "fields": {
+            "watched": true,
+            "title": "Pulp Fiction",
+            "rating": 5,
+            "release_date": "1994-10-14",
+            "review": "Classic."
+        }
+    }
+]

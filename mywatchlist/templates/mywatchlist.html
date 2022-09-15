@@ -1,0 +1,58 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="container">
+    <nav class = "navbar navbar-expand-sm navbar-dark bg-secondary">
+        <a class = "navbar-brand" href = "/">HOME</a>
+
+        <div class = "collapse navbar-collapse" id = "navbarSupportedContent">
+            <ul class = "navbar-nav mr-auto">
+                <li class = "nav-item">
+                    <a class = "nav-link active" href = "">Watchlist</a>
+                </li>
+                <li class = "nav-item">
+                    <a class = "nav-link" href = "../xml">View in XML</a>
+                </li>
+                <li class = "nav-item ">
+                    <a class = "nav-link" href = "../json">View in JSON</a>
+                </li>
+                <li class = "nav-item ">
+                    <a class = "nav-link" href = "../../katalog/">Catalogue</a>
+                </li>
+            </ul>
+
+        </div>
+    </nav>
+    <h2  class = "mt-4">{{nama}}'s Watchlist</h2>
+    <h2>USER_ID {{npm}}</h2>
+
+    
+    <h3>{% if more_watched %} Selamat, kamu sudah banyak menonton! {% else %} Wah, kamu masih sedikit menonton! {% endif %}</h3>
+
+    <table class="table">
+        <thead class = "thead-light">
+        <tr>
+            <th class="text-left">Status</th>
+            <th class="text-left">Title</th>
+            <th class="text-left">Rating</th>
+            <th class="text-left">Released Date</th>
+            <th class="text-left">Review</th>
+        </tr>
+        </thead>
+        <tbody>
+            
+            {% for movie in watchlist %}
+            <tr>
+              <td>{% if movie.watched %} Watched {% else %} Not Watched {% endif %}</td>
+              <td>{{movie.title}}</td>
+              <td>{{movie.rating}}</td>
+              <td>{{movie.release_date}}</td>
+              <td>{{movie.review}}</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+    <hr/>
+</div>
+
+{% endblock content %}
