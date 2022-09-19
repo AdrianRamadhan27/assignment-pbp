@@ -59,7 +59,7 @@ Sesuai dengan kriteria atribut di soal, pada file `models.py` aku membuat class 
 
 
 ### Testing
-I implemented testing for the 3 urls in `mywatchlist`. To execute it, just run `python manage.py test mywatchlist` but make sure to also run `python manage.py collectstatic` beforehand.
+Aku telah mengimplementasikan 3 url di `mywatchlist`. Untuk menjalankannya, hanya perlu run `python manage.py test mywatchlist`tapi pastikan sudah menjalankan `python manage.py collectstatic` sebelumnya. Test ini akan mengecek `status_code` dari response yang diberikan setiap url dan hanya akan bisa lulus tes jika mengembalikan `200 OK`.
 
 
 ## Credits
