@@ -14,8 +14,11 @@ from todolist.forms import TaskForm
 
 @login_required(login_url='/todolist/login')
 def show_todolist(request):
+
+    tasks = Task.objects.filter(user=request.user)
     context = {
-        'username_login': request.COOKIES['username'],
+        'username_login': request.COOKIES['user_name'],
+        'tasks': tasks
     }
     return render(request, 'todolist.html', context)
 
@@ -42,6 +45,7 @@ def login_user(request):
             login(request, user)
             response = HttpResponseRedirect(reverse("todolist:show_todolist"))
             response.set_cookie('last_login', str(datetime.datetime.now()))
+            response.set_cookie('user_name', username)
             return response
         else:
             messages.info(request, 'Username or Password Incorrect!')
@@ -53,13 +57,18 @@ def logout_user(request):
     logout(request)
     response = HttpResponseRedirect(reverse('todolist:login'))
     response.delete_cookie('last_login')
+    response.delete_cookie('user_name')
+
     return response
 
 def create_task(request):
-    form = TaskForm(request.POST or None)
+    form = TaskForm(request.POST)
     if form.is_valid():
-        form.save()
-        return HttpResponseRedirect(reverse('todolist:show_todolist'))
+        task = form.save(commit=False)
+        task.user = request.user
+        task.save()
+        return redirect('todolist:show_todolist')
+
     context = {
         'form': form
     }
