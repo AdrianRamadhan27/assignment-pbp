@@ -14,7 +14,6 @@ def show_html(request):
         else:
             not_watched += 1
     
-    
     context = {
         'more_watched': watched > not_watched,
         'watchlist': data,
