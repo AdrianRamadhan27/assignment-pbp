@@ -12,6 +12,8 @@
                 <th>Date created</th>
                 <th>Task</th>
                 <th>Description</th>
+                <th>Status</th>
+                <th colspan="2">Actions</th>
             </tr>
         </thead>
     
@@ -21,6 +23,9 @@
                 <td>{{task.date}}</td>
                 <td>{{task.title}}</td>
                 <td>{{task.description}}</td>
+                <td>{% if task.is_finished %} Selesai {% else %} Belum Selesai {% endif %}</td>
+                <td><button><a href="/todolist/update/{{task.id}}">Update</a></button></td>
+                <td><button><a href="/todolist/delete/{{task.id}}">Delete</a></button></td>
             </tr>
             {% endfor %}
         </tbody>

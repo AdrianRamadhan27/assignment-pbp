@@ -15,3 +15,4 @@ class TaskForm(forms.ModelForm):
             "title",
             "description",
         ]
+
