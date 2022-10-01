@@ -1,37 +1,69 @@
 {% extends 'base.html' %}
 
 {% block content %}
-<div class="container">
 
-    <h1>To-Do List</h1>
-    <h5>Current User: {{ username_login }}</h5>
-    <button><a href="{% url 'todolist:create_task' %}">Create Task</a></button>
-    <table class="table">
-        <thead>
-            <tr>
-                <th>Date created</th>
-                <th>Task</th>
-                <th>Description</th>
-                <th>Status</th>
-                <th colspan="2">Actions</th>
-            </tr>
-        </thead>
+<nav class="bg-white border-gray-200 dark:bg-gray-900">
+    <div class="flex flex-wrap justify-between items-center mx-auto max-w-screen-xl px-4 md:px-6 py-2.5">
+        <a href="#" class="flex items-center">
+            <span class="self-center text-xl font-semibold whitespace-nowrap dark:text-white">ToDoList</span>
+        </a>
+        <div class="flex items-center">
+            <a href="#" class="mr-6 text-sm font-medium text-gray-500 dark:text-white hover:underline">{{ username_login }}</a>
+            <a href="{% url 'todolist:logout' %}" class="text-sm font-medium text-red-600 dark:text-red-500 hover:underline">Logout</a>
+        </div>
+    </div>
+</nav>
+<nav class="bg-gray-50 dark:bg-gray-700">
+    <div class="py-3 px-4 mx-auto max-w-screen-xl md:px-6">
+        <div class="flex items-center">
+            <ul class="flex flex-row mt-0 mr-6 space-x-8 text-sm font-medium">
+                <li>
+                    <a href="#" class="text-gray-900 dark:text-white hover:underline" aria-current="page">Tasks</a>
+                </li>
+                <li>
+                    <a href="{% url 'todolist:create_task' %}" class="text-gray-900 dark:text-white hover:underline">Add Task</a>
+                </li>
+                
+            </ul>
+        </div>
+    </div>
+</nav>
+
+<div class="h-screen flex flex-col items-center justify-center">
+
     
-        <tbody>
+
+
+
+ 
             {% for task in tasks%}
-            <tr>
-                <td>{{task.date}}</td>
-                <td>{{task.title}}</td>
-                <td>{{task.description}}</td>
-                <td>{% if task.is_finished %} Selesai {% else %} Belum Selesai {% endif %}</td>
-                <td><button><a href="/todolist/update/{{task.id}}">Update</a></button></td>
-                <td><button><a href="/todolist/delete/{{task.id}}">Delete</a></button></td>
-            </tr>
+            
+            <div class=" w-full  ">
+                <div class="h-48 lg:h-auto lg:w-48 flex-none bg-cover rounded-t lg:rounded-t-none lg:rounded-l text-center overflow-hidden">
+                </div>
+                <div class="border-r border-b border-l border-gray-400 lg:border-l lg:border-t lg:border-gray-400 bg-white rounded-b lg:rounded-b-none lg:rounded-r p-4 flex flex-col justify-between leading-normal hover:bg-gray-100 text-white font-bold py-2 px-4">
+                    <p class="text-gray-600">{{task.date}}</p>
+                    <div class="mb-8">
+                    <div class="text-gray-900 font-bold text-xl mb-2">{{task.title}}</div>
+                    <p class="text-gray-700 text-base">{{task.description}}</p>
+                  </div>
+                  <div class=" flex flex-col items-end ">
+                    <div class="text-sm ">
+                      <p class="text-gray-900 leading-none">{% if task.is_finished %} Selesai {% else %} Belum Selesai {% endif %}</p>
+                      <button class="bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline">
+                        <a href="/todolist/update/{{task.id}}">Update</a>
+                    </button>
+                      <button class="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline">
+                        <a href="/todolist/delete/{{task.id}}">Delete</a>
+                    </button>
+                    </div>
+                  </div>
+                </div>
+              </div>
             {% endfor %}
-        </tbody>
-    </table>
+     
     <hr>
-    <button><a href="{% url 'todolist:logout' %}">Logout</a></button>
+    
 </div>
 
 {% endblock content %}

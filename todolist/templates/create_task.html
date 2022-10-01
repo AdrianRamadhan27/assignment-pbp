@@ -6,19 +6,61 @@
 
 {% block content %}
 
-<div class = "container">
+<nav class="bg-white border-gray-200 dark:bg-gray-900">
+    <div class="flex flex-wrap justify-between items-center mx-auto max-w-screen-xl px-4 md:px-6 py-2.5">
+        <a href="#" class="flex items-center">
+            <span class="self-center text-xl font-semibold whitespace-nowrap dark:text-white">ToDoList</span>
+        </a>
+        <div class="flex items-center">
+            <a href="#" class="mr-6 text-sm font-medium text-gray-500 dark:text-white hover:underline">{{ username_login }}</a>
+            <a href="{% url 'todolist:logout' %}" class="text-sm font-medium text-red-600 dark:text-red-500 hover:underline">Logout</a>
+        </div>
+    </div>
+</nav>
+<nav class="bg-gray-50 dark:bg-gray-700">
+    <div class="py-3 px-4 mx-auto max-w-screen-xl md:px-6">
+        <div class="flex items-center">
+            <ul class="flex flex-row mt-0 mr-6 space-x-8 text-sm font-medium">
+                <li>
+                    <a href="{% url 'todolist:show_todolist' %}" class="text-gray-900 dark:text-white hover:underline" aria-current="page">Tasks</a>
+                </li>
+                <li>
+                    <a href="#" class="text-gray-900 dark:text-white hover:underline" aria-current="page">Add Task</a>
+                </li>
+                
+            </ul>
+        </div>
+    </div>
+</nav>
 
-    <h1>Create a new task</h1>
+<div class = "h-screen flex flex-col items-center justify-center ">
 
-    <form method="POST" action="">
-        {% csrf_token %}
+    <h1 class="block text-black-1000 text-xl font-bold mb-2">Create a new task</h1>
+
+    <div class="w-full min-w-min max-w-xs bg-gray-100 dark:bg-gray-700">
+        <form method="POST" action="" class="w-full  shadow-md rounded px-8 pt-6 pb-5 mb-5">
+            {% csrf_token %}
+            
+            <label for="title" class="text-white">Title</label>
+            <br>
+            {{ form.title }}
+            
+            <br>
+
+            <label for="description" class="text-white">Description</label>
+
+            {{form.description}}
+
+            <br>
+            <br>
+            <div class="flex flex-col items-center">
+                <button class="ter bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline" type="submit">
+                    Add
+                </button>
+            </div>
+        </form>
         
-        {{ form.as_p }}
-
-        <input type="submit", value="Create">
-    </form>
-    <button><a href="{% url 'todolist:show_todolist' %}">Cancel</a></button>
-
+    </div>
 
 
 </div>
