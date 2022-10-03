@@ -4,6 +4,9 @@ Pemrograman Berbasis Platform (CSGE602022) - diselenggarakan oleh Fakultas Ilmu 
 
 Raden Mohamad Adrian Ramadhan Hendar Wibawa - 2106750540
 
+- [Tugas 4](#tugas-4---todolist)
+- [Tugas 5](#tugas-5---web-design)
+
 ## Tugas 4 - ToDoList
 
 ### 🌐 Deployed App 
@@ -87,6 +90,69 @@ Karena aplikasi dari tugas 2 sudah dideploy menggunakan repository yang sama, ya
 - [x] Membuat dua akun pengguna dan tiga dummy data menggunakan model Task pada akun masing-masing di situs web Heroku.
 Tambahkan User baru dengan membuka aplikasi yang telah di deploy dengan 2 cara. Cara pertama adalah memanfaatkan fitur admin django. Agar bisa login ke situs admin. Jalankan `python manage.py createsuperuser` di terminal aplikasi heroku dan buat sebuah akun admin. Masuklah ke halaman admin dan tambahkan user baru di database User.
 User baru juga bisa dibuat dengan mendaftarkan akun pada halaman register yang telah dibuat. Setelah itu, buat 3 task dengan form create-task pada masing-masing akun. Mirisnya, jumlah tugas pekan ini lebih dari 6 :(.
+
+## Tugas 5 - Web Design
+
+### Inline vs Internal vs External CSS
+- Inline CSS - Metode styling ini memanfaatkan atribut `style` dari tag HTML di dalam template. Value dari atribut style nantinya adalah string styling. Metode ini efektif digunakan jika hanya sebatas menambahkan styling pada 1 selector yang digunakan dan tidak akan digunakan lagi. Karena itu juga, metode ini kurang cocok jika ingin membuat style yang ingin digunakan kembali.
+- Internal CSS - Metode styling ini menggunakan tag `<style>` dan styling ditulis di dalam tag tersebut. Dengan metode ini, kita dapat mendefinisikan styling dari selector. Sehingga untuk tiap instance dari selector (kecuali ID) yang dibuat di dalam file template yang berisi `<style>` styling nya akan selalu berlaku. Kelemahannya adalah jika style yang ingin dibuat banyak akan memenuhi file template yang seharusnya hanya diisi dengan tag endpoint. 
+- External CSS - Metode styling ini menggunakan file dengan ekstensi .css untuk menuliskan stylingnya. File ini nantinya di-referensikan dengan tag `<link>` di dalam tag `<head>` dari template. Sama dengan internal CSS, styling yang dibuat akan berlaku pada tiap instance selector. Bedanya adalah yang mana internal CSS hanya berlaku pada 1 file, external CSS dapat di-referensikan di berbagai file sehingga 1 styling file `.css` dapat digunakan untuk beberapa template. Kelemahannya mungkin akan memengaruhi waktu render halaman website, karena perlu mereferensikan file luar.
+
+
+
+
+### HTML5 Tags
+- `<p>` - Teks yang diapit oleh tag ini akan tampil dengan ukuran normal.
+- `<h1>` ... `<h6>` - Teks yang diapit oleh tag ini akan tampil sebagai heading/sub-heading. Ukuran teks `<h1>` paling besar dan ukuran teks `<h6>` paling kecil.
+- `<a>` - Teks yang diapit oleh tag ini akan tampil sebagai link. Tujuan dari linknya dapat ditentukan dengan attribut `href`.
+- `<div>` - Tag ini dapat membungkus dan memisahkan elemen-elemen lain.
+- `<form>` - Tag ini akan membuat form yang dapat mengirimkan request POST/UPDATE/DELETE.
+- `<input>` - Tag ini digunakan di dalam tag `<form>` yang dapat menerima masukan dari pengguna. Atribut `type` menentukan jenisnya.
+- `<button>` - Tag ini akan membuat sebuah kotak yang dapat ditekan layaknya tombol.
+- `<span>` - Tag ini bekerja mirip dengan `<div>` tapi hanya dalam 1 baris teks.
+- `<br>` - Tag ini akan membuat bari baru.
+- `<hr>` - Tag ini akan membuat garis pemisah.
+- `<table>` - Tag ini akan membuat tabel dengan `<tr>` sebagai baris dan `<td>` sebagai kolom/data.
+
+
+### CSS Selectors
+- Element Selector - Selector ini menggunakan tag HTML sebagai selector untuk mengubah properti yang terdapat dalam tag tersebut. 
+Format penulisan element selector adalah sebagai berikut.
+```CSS
+h1 {
+  color: #fca205;
+  font-family: "Monospace";
+  font-style: italic;
+}
+```
+- ID Selector - Selector ini menggunakan ID yang ditambahkan pada tag sebagai selector-nya. Ia hanya akan mengubah properti tag yang memiliki ID yang dijadikan selector. Jika ada elemen lain dengan tag yang sama, properti nya tidak akan diubah karena ID nya tidak sama. 
+Format penulisan ID selector adalah sebagai berikut.
+```CSS
+#header {
+  background-color: #f0f0f0;
+  margin-top: 0;
+  padding: 20px 20px 20px 40px;
+}
+```
+- Class Selector - Selector ini menggunakan class yang ditambahkan pada tag sebagai selector-nya. Ia hanya akan mengubah properti tag yang memiliki class yang dijadikan selector. Bedanya adalah class yang sama dapat digunakan berkali-kali pada elemen yang berbeda.
+Format penulisan ID selector adalah sebagai berikut.
+```CSS
+.content_section {
+  background-color: #3696e1;
+  margin-bottom: 30px;
+  color: #000000;
+  font-family: cursive;
+  padding: 20px 20px 20px 40px;
+}
+```
+### How I did it
+- [x] Kustomisasi templat HTML yang telah dibuat pada Tugas 4 dengan menggunakan CSS atau CSS framework (seperti Bootstrap, Tailwind, Bulma) dengan ketentuan sebagai berikut:
+  - [x]  Kustomisasi templat untuk halaman login, register, dan create-task semenarik mungkin. \
+        Working on it 👷‍♂️
+  - [x]  Kustomisasi halaman utama todo list menggunakan cards. (Satu card mengandung satu task). \
+        Working on it 👷‍♂️
+- [x]  Membuat keempat halaman yang dikustomisasi menjadi responsive. \
+Working on it 👷‍♂️
 
 ## Thank You
 P.S. Capekan nulis README.md nya daripada bikin appnya 🤭.
