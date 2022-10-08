@@ -1,6 +1,64 @@
 {% extends 'base.html' %}
 
 {% block content %}
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+<script>
+    $(document).ready(function(){
+        $.getJSON("{% url 'todolist:show_json' %}", function(data) {
+            var grid = [];
+            $.each(data, function(index, value) {
+                var cards = [];
+                var content = [];
+                var status = ""
+                if ((value.fields.is_finished)){
+                    status = "Selesai";
+                } else {
+                    status = "Belum Selesai"
+                }
+                content.push("<p class='text-gray-600'>" + value.fields.date + "</p>");
+                content.push(`
+                    <div class="mb-8"> 
+                        <div class="text-gray-900 font-bold text-xl mb-2">` + 
+                            value.fields.title +
+                        `</div>
+                        <p class="text-gray-700 text-base">` +
+                            value.fields.description+
+                        `</p>
+                    </div>
+                `);
+                content.push(`
+                    <div class=" flex flex-col items-end ">
+                        <div class="text-sm ">
+                            <p class="text-gray-900 leading-none">` + 
+                                status +
+                            `</p>
+                            <button class="bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline">
+                                    <a href="/todolist/update/` + value.fields.id + `">Update</a>
+                            </button>
+                            <button class="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline">
+                                <a href="/todolist/delete/`+ value.fields.id +`">Delete</a>
+                            </button>
+                        </div>
+                    </div>` 
+                );
+                cards.push(`
+                    <div class="w-full">
+                        <div class="h-20 lg:h-auto lg:w-48 flex-none bg-cover rounded-t lg:rounded-t-none lg:rounded-l text-center overflow-hidden"></div>
+                        <div class="border-r border-b border-l border-gray-400 lg:border-l lg:border-t lg:border-gray-400 bg-white rounded-b lg:rounded-b-none lg:rounded-r p-4 flex flex-col justify-between leading-normal hover:bg-gray-100 text-white font-bold py-2 px-4">
+                    ` + content.join("") + 
+                    `
+                        </div>
+                    </div>       
+                    `
+                );
+                grid.push(cards.join(""));
+            });
+
+            $("#todolist-cards").html(grid.join(""));
+        });
+    });
+</script>
+
 
     <nav class="bg-white border-gray-200 dark:bg-gray-900">
         <div class="flex flex-wrap justify-between items-center mx-auto max-w-screen-xl px-4 md:px-6 py-2.5">
@@ -30,10 +88,10 @@
     </nav>
 
 
-<div class="h-auto flex flex-col items-center justify-center p-2 lg:grid grid-cols-3 gap-3">
+<div id="todolist-cards" class="h-auto flex flex-col items-center justify-center p-2 lg:grid grid-cols-3 gap-3">
 
     
-            {% for task in tasks%}
+            <!-- {% for task in tasks%}
             
             <div class="w-full ">
                 <div class="h-20 lg:h-auto lg:w-48 flex-none bg-cover rounded-t lg:rounded-t-none lg:rounded-l text-center overflow-hidden">
@@ -41,23 +99,23 @@
                 <div class="border-r border-b border-l border-gray-400 lg:border-l lg:border-t lg:border-gray-400 bg-white rounded-b lg:rounded-b-none lg:rounded-r p-4 flex flex-col justify-between leading-normal hover:bg-gray-100 text-white font-bold py-2 px-4">
                     <p class="text-gray-600">{{task.date}}</p>
                     <div class="mb-8">
-                    <div class="text-gray-900 font-bold text-xl mb-2">{{task.title}}</div>
-                    <p class="text-gray-700 text-base">{{task.description}}</p>
-                  </div>
-                  <div class=" flex flex-col items-end ">
-                    <div class="text-sm ">
-                      <p class="text-gray-900 leading-none">{% if task.is_finished %} Selesai {% else %} Belum Selesai {% endif %}</p>
-                      <button class="bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline">
-                        <a href="/todolist/update/{{task.id}}">Update</a>
-                    </button>
-                      <button class="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline">
-                        <a href="/todolist/delete/{{task.id}}">Delete</a>
-                    </button>
+                        <div class="text-gray-900 font-bold text-xl mb-2">{{task.title}}</div>
+                        <p class="text-gray-700 text-base">{{task.description}}</p>
                     </div>
-                  </div>
+                    <div class=" flex flex-col items-end ">
+                        <div class="text-sm ">
+                            <p class="text-gray-900 leading-none">{% if task.is_finished %} Selesai {% else %} Belum Selesai {% endif %}</p>
+                            <button class="bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline">
+                                <a href="/todolist/update/{{task.id}}">Update</a>
+                            </button>
+                            <button class="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline">
+                                <a href="/todolist/delete/{{task.id}}">Delete</a>
+                            </button>
+                        </div>
+                    </div>
                 </div>
-              </div>
-            {% endfor %}
+            </div>
+            {% endfor %} -->
      
     <hr>
     
