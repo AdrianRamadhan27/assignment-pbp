@@ -147,12 +147,78 @@ Format penulisan ID selector adalah sebagai berikut.
 ```
 ### How I did it
 - [x] Kustomisasi templat HTML yang telah dibuat pada Tugas 4 dengan menggunakan CSS atau CSS framework (seperti Bootstrap, Tailwind, Bulma) dengan ketentuan sebagai berikut:
+        Aku menggunakan framework Tailwind CSS untuk styling aplikasi Todolist. Untuk cara menambahkannya cukup simpel, aku hanya perlu menambahkan baris berikut ke dalam tag `<head>` dari `base.html`.
+```HTML
+<script src="https://cdn.tailwindcss.com"></script>
+```
   - [x]  Kustomisasi templat untuk halaman login, register, dan create-task semenarik mungkin. \
-        Working on it 👷‍♂️
+        Untuk kustomisasi menggunakan Tailwind, aku hanya perlu melakukan styling lewat utility class yang telah disediakan. Berikut adalah contoh potongan template todolist.html yang memanfaatkan utility class dari Tailwind.
+```HTML
+<div class = "h-screen flex flex-col items-center justify-center">
+
+<h1 class="block text-black-1000 text-xl font-bold mb-2">Login</h1>
+
+
+<div class="w-full max-w-xs">
+<form method="post" class="bg-white shadow-md rounded px-8 pt-6 pb-8 mb-4">
+  {% csrf_token %}
+  <div class="mb-4">
+    <label class="block text-gray-700 text-sm font-bold mb-2" for="username">
+      Username
+    </label>
+    <input type="text" name="username" placeholder="Username" class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" id="username">
+  </div>
+  <div class="mb-6">
+    <label class="block text-gray-700 text-sm font-bold mb-2" for="password">
+      Password
+    </label>
+...
+```
+Dapat terlihat bahwa styling yang digunakan serupa dengan inline CSS. Bedanya kita tidak memakai atribut style, melainkan class. Seperti yang dijelaskan sebelumnya tentang CSS selector, tiap class yang tersedia di Tailwind sudah diberikan CSS yang menyesuaikan sehingga kita hanya perlu menambahkan class untuk menambah style.
   - [x]  Kustomisasi halaman utama todo list menggunakan cards. (Satu card mengandung satu task). \
-        Working on it 👷‍♂️
+  Untuk membuat card, aku menggunakan template tailwind yang kudapat dari website berikut [17 Tailwind CSS Card Examples](https://ordinarycoders.com/blog/article/17-tailwindcss-cards) dengan sedikit perubahan yang kubuat agar menyesuaikan. Aku juga menggunakan class grid dari tailwind untuk membuat grid tiap kartu yang tiap baris nya berisi 3 kolom. Berikut potongan kodenya.
+```HTML
+<div class="w-full ">
+<div class="h-20 lg:h-auto lg:w-48 flex-none bg-cover rounded-t lg:rounded-t-none lg:rounded-l text-center overflow-hidden">
+</div>
+<div class="border-r border-b border-l border-gray-400 lg:border-l lg:border-t lg:border-gray-400 bg-white rounded-b lg:rounded-b-none lg:rounded-r p-4 flex flex-col justify-between leading-normal hover:bg-gray-100 text-white font-bold py-2 px-4">
+    <p class="text-gray-600">{{task.date}}</p>
+    <div class="mb-8">
+    <div class="text-gray-900 font-bold text-xl mb-2">{{task.title}}</div>
+    <p class="text-gray-700 text-base">{{task.description}}</p>
+  </div>
+  <div class=" flex flex-col items-end ">
+    <div class="text-sm ">
+      <p class="text-gray-900 leading-none">{% if task.is_finished %} Selesai {% else %} Belum Selesai {% endif %}</p>
+      <button class="bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline">
+        <a href="/todolist/update/{{task.id}}">Update</a>
+    </button>
+      <button class="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline">
+        <a href="/todolist/delete/{{task.id}}">Delete</a>
+    </button>
+    </div>
+  </div>
+</div>
+</div>
+```
 - [x]  Membuat keempat halaman yang dikustomisasi menjadi responsive. \
-Working on it 👷‍♂️
+Agar membuat halaman yang responsive di Tailwind, aku menggunakan prefix breakpoint. Utility class dengan prefix ini berkesinambungan dengan CSS `@media (min-width: [width in px]) { ... }`. Dengan adanya prefix ini, aku bisa melakukan kustomisasi sesuai dengan ukuran minimal dari layar sehingga akan menyesuaikan dengan *device* yang digunakan. Ada 5 prefix default yang disediakan Tailwind.
+- `'sm'` - Width minimal adalah 640px
+- `'md'` - Width minimal adalah 780px
+- `'lg'` - Width minimal adalah 1024px
+- `'xl'` - Width minimal adalah 1280px
+- `'2xl'` - Width minimal adalah 1536px
+
+Karena width minimal yang disediakan hanyalah 640px (yang mana ini masih lebih lebar dari banyak *mobile device* pada umumnya), dalam penulisan styling yang harus diprioritaskan pertama adalah untuk ukuran mobile. Baru setelah itu tambahkan prefix breakpoint untuk styling ukuran yang lebih besar. Contohnya pada kode berikut untuk pembuatan grid hanya di layar selebar minimum 1024px
+```HTML
+
+<div class="h-auto flex flex-col items-center justify-center p-2 lg:grid grid-cols-3 gap-3">
+
+    
+            {% for task in tasks%}
+            
+            <div class="w-full ">
+```
 
 ## Thank You
 P.S. Capekan nulis README.md nya daripada bikin appnya 🤭.
