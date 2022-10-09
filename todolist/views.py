@@ -6,7 +6,7 @@ from django.contrib import messages
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.decorators import login_required
 import datetime
-from django.http import HttpResponseRedirect, HttpResponse
+from django.http import HttpResponseRedirect, HttpResponse, JsonResponse
 from django.core import serializers
 from django.urls import reverse
 from todolist.models import Task
@@ -15,11 +15,13 @@ from todolist.forms import TaskForm
 
 @login_required(login_url='/todolist/login')
 def show_todolist(request):
+    form = TaskForm(request.POST)
 
-    tasks = Task.objects.filter(user=request.user)
+    # tasks = Task.objects.filter(user=request.user)
     context = {
         'username_login': request.COOKIES['user_name'],
-        'tasks': tasks
+        # 'tasks': tasks
+        'form': form
     }
     return render(request, 'todolist.html', context)
 
@@ -92,3 +94,12 @@ def update_task(request, id):
     task.is_finished = not task.is_finished
     task.save()
     return redirect('todolist:show_todolist')
+
+@login_required(login_url='/todolist/login')
+def add_task_ajax(request):
+    if request.method == "POST":
+        title = request.POST['title']
+        description = request.POST['description']
+        Task.objects.create(user=request.user, title=title, description=description)
+        return JsonResponse({'error': False, 'msg':'Successful'})
+    return redirect('todolist:show_todolist')    
