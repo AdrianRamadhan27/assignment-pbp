@@ -3,7 +3,22 @@
 {% block content %}
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
 <script>
-   
+    function deleteTask(id) {
+            $.ajax({
+                url: '/todolist/delete/' + id,
+                data: {
+                    'id': id,
+                },
+                dataType: 'json',
+                success: function (data) {
+                    if (data.deleted) {
+                        $("#task-" + id).remove();
+                        alert("Task will be deleted.");
+                    }
+                }
+            });
+
+    }
 
     $(document).ready(function(){
         $.getJSON("{% url 'todolist:show_json' %}", function(data) {
@@ -37,14 +52,14 @@
                             <button class="bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline">
                                     <a href="/todolist/update/` + value.pk + `">Update</a>
                             </button>
-                            <button class="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline">
-                                <a href="/todolist/delete/`+ value.pk +`">Delete</a>
+                            <button onClick="deleteTask(${value.pk})" class="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline">
+                                Delete
                             </button>
                         </div>
                     </div>` 
                 );
                 cards.push(`
-                    <div class="w-full">
+                    <div class="w-full" id="task-`+ value.pk +`">
                         <div class="h-20 lg:h-auto lg:w-48 flex-none bg-cover rounded-t lg:rounded-t-none lg:rounded-l text-center overflow-hidden"></div>
                         <div class="border-r border-b border-l border-gray-400 lg:border-l lg:border-t lg:border-gray-400 bg-white rounded-b lg:rounded-b-none lg:rounded-r p-4 flex flex-col justify-between leading-normal hover:bg-gray-100 text-white font-bold py-2 px-4">
                     ` + content.join("") + 
@@ -114,14 +129,14 @@
                                             <button class="bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline">
                                                     <a href="/todolist/update/` + value.pk + `">Update</a>
                                             </button>
-                                            <button class="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline">
-                                                <a href="/todolist/delete/`+ value.pk +`">Delete</a>
+                                            <button onClick="deleteTask(${value.pk})" class="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline">
+                                                Delete
                                             </button>
                                         </div>
                                     </div>` 
                                 );
                                 cards.push(`
-                                    <div class="w-full">
+                                    <div class="w-full" id="task-`+ value.pk +`">
                                         <div class="h-20 lg:h-auto lg:w-48 flex-none bg-cover rounded-t lg:rounded-t-none lg:rounded-l text-center overflow-hidden"></div>
                                         <div class="border-r border-b border-l border-gray-400 lg:border-l lg:border-t lg:border-gray-400 bg-white rounded-b lg:rounded-b-none lg:rounded-r p-4 flex flex-col justify-between leading-normal hover:bg-gray-100 text-white font-bold py-2 px-4">
                                     ` + content.join("") + 
@@ -176,7 +191,7 @@
 <div id="todolist-cards" class="h-auto flex flex-col items-center justify-center p-2 lg:grid grid-cols-3 gap-3">
 
     
-            <!-- {% for task in tasks%}
+            {% for task in tasks%}
             
             <div class="w-full ">
                 <div class="h-20 lg:h-auto lg:w-48 flex-none bg-cover rounded-t lg:rounded-t-none lg:rounded-l text-center overflow-hidden">
@@ -200,7 +215,7 @@
                     </div>
                 </div>
             </div>
-            {% endfor %} -->
+            {% endfor %}
      
     <hr>
     

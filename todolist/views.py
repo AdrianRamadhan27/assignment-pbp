@@ -87,7 +87,10 @@ def create_task(request):
 def delete_task(request, id):
     task = Task.objects.get(id = id)
     task.delete()
-    return redirect('todolist:show_todolist')
+    data = {
+            'deleted': True
+        }
+    return JsonResponse(data)
 
 def update_task(request, id):
     task = Task.objects.get(id = id)
