@@ -51,16 +51,69 @@ _https://www.w3schools.com/_
 - [x] Mengubah tugas 4 yang telah dibuat sebelumnya menjadi menggunakan AJAX.
   - [x] AJAX GET
     - [x] Buatlah view baru yang mengembalikan seluruh data task dalam bentuk JSON.
+    
+    Aku membuat function `show_json()` yang mengembalikan object `HttpResponse`tipe json.
     - [x] Buatlah path /todolist/json yang mengarah ke view yang baru kamu buat.
+    
+    Aku tambahkan path('json/') ke `urls.py` yang memanggil function `show_json()`
     - [x] Lakukan pengambilan task menggunakan AJAX GET.
+    
+    Pertama aku ubah function `show_todolist()` untuk tidak perlu retrieve semua object task. Lalu pada template `todolist.html` aku tambahkan script jQuery yang dibungkus `$(document).ready(function{})` agar script langsung jalan saat halaman di-load. Script yang digunakan adalah `$getJSON()` untuk menerima json dari `todolist/json/` dan `$each()` yang melakukan iterasi untuk tiap object task pada database. Pada tiap iterasi, aku menambahkan tag HTML yang sebelumnya sudah ada secara synchronous programming. Berikut adalah potongan kode yang dimaksud.
+```Javascript
+$(document).ready(function(){
+   $.getJSON("{% url 'todolist:show_json' %}", function(data) {
+       var grid = [];
+       $.each(data, function(index, value) {
+           var cards = [];
+           var content = [];
+           var status = ""
+           if ((value.fields.is_finished)){
+               status = "Selesai";
+           } else {
+               status = "Belum Selesai"
+           }
+           . . .
+```
   - [x] AJAX POST
     - [x] Buatlah sebuah tombol Add Task yang membuka sebuah modal dengan form untuk menambahkan task.
-    - [x] Buatlah view baru untuk menambahkan task baru ke dalam database.
-    - [x] Buatlah path /todolist/add yang mengarah ke view yang baru kamu buat.
-    - [x] Hubungkan form yang telah kamu buat di dalam modal kamu ke path /todolist/add
-    - [x] Tutup modal setelah penambahan task telah berhasil dilakukan.
-    - [x] Lakukan refresh pada halaman utama secara asinkronus untuk menampilkan list terbaru tanpa reload seluruh page.
 
+    Tombol yang sudah kubuat di Tugas 4 dan Tugas 5 aku gunakan kembali, hanya saja tombol ini tidak mengarah ke halaman create-task. Aku membuat sebuah modal menggunakan tailwind-CSS yang aku ikuti dari tutorial berikut: [Creating a Modal Dialog With Tailwind CSS](https://www.section.io/engineering-education/creating-a-modal-dialog-with-tailwind-css/). Aku atur style display nya menjadi none untuk default. Dengan jQuery aku buat jika tombol ditekan display nya menjadi block. Pada modal ini kubuat form secara manual.
+    - [x] Buatlah view baru untuk menambahkan task baru ke dalam database
+    
+    Aku membuat function `add_task_ajax()` yang akan membuat object Task dari form add task modal jika method dari request adalah POST. Setelah itu, function ini akan mengembalikan response dalam bentuk Json sebagai status keberhasilan data yang ditambahkan.
+    - [x] Buatlah path /todolist/add yang mengarah ke view yang baru kamu buat.
+    
+    Aku tambahkan path(`add/`) ke urls.py.
+    - [x] Hubungkan form yang telah kamu buat di dalam modal kamu ke path /todolist/add
+    
+    Ketika form task di-_submit_, Jquery akan memanggil request ajax dengan method post ke url todolist/add yang sebelumnya ditambahkan. Berikut kode yang dimaksud.
+    
+```Javascript
+$("#task-form").submit(function(e){
+    e.preventDefault();
+    $("#add-btn").prop('disabled', true);
+    $("#add-btn").text('Processing...');
+    var $form = $(this);
+    var serializedData = $form.serialize();
+    $.ajax({
+        url: "{% url 'todolist:add_task' %}",
+        type: "POST",
+        data: serializedData,
+        dataType: 'json',
+        success: function (data) {
+        . . . 
+```
+
+   - [x] Tutup modal setelah penambahan task telah berhasil dilakukan.
+   
+   Selain menambahkan data task, submit form juga akan mengembalikan style dari modal menjadi display:none.
+   
+```Javascript
+$("#my-modal").attr("style", "display:none");
+```
+   - [x] Lakukan refresh pada halaman utama secara asinkronus untuk menampilkan list terbaru tanpa reload seluruh page.
+   
+   Agar halaman dapat te-_refresh_ secara asinkronus tanpa reload seluruh page. Aku ulangi proses getJSON dari method GET setelah sebuah form disubmit.
 
 ## Thank You
 P.S. Capekan nulis README.md nya daripada bikin appnya 🤭.
